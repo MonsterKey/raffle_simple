@@ -5,7 +5,8 @@ use anchor_lang::Result;
 use anchor_spl::token::{Token, MintTo, Transfer, Burn, TokenAccount};
 
 
-// const CONSTRAINT_SEED:&[u8] = b"frank-raffle";
+const CONSTRAINT_SEED:&[u8] = b"frank-raffle";
+
 pub const ENTRANTS_SIZE: u64 = 5000;
 pub const TOKEN_MINT: &str = "CdjiQaAUqbz6m4hpf1SDrfJ78Mr2twSHFLETSywsXHW7";
 pub const ADMIN: &str = "idZLUJ5JTfngiciw99445sqmxfuh7cF7t1QBxFuYf2d";
@@ -78,7 +79,7 @@ pub mod raffle_simple {
         if sold + amount > raffle.total_supply {
             return Err(RaffleError::MaxSoldTooLarge.into())
         }
-        // Create the burn struct for our context
+
         let transfer_instruction = Burn{
             from: ctx.accounts.token_account.to_account_info(),
             mint: ctx.accounts.mint.to_account_info(),
@@ -86,10 +87,8 @@ pub mod raffle_simple {
         };
          
         let cpi_program = ctx.accounts.token_program.to_account_info();
-        // Create the Context for our burn request
         let cpi_ctx = CpiContext::new(cpi_program, transfer_instruction);
         let burn_number = amount * raffle.ticket_price;
-        // Execute anchor's helper function to burn tokens
         anchor_spl::token::burn(cpi_ctx, burn_number)?;
         raffle.sold = sold + amount;
 
@@ -101,21 +100,18 @@ pub mod raffle_simple {
 }
 
 #[derive(Accounts)]
-#[instruction(bump: u8, end_timestamp: i64, ticket_price:u64, max_entrants:u64)] //这里必须列出指令中所有参数，未使用的也要列出
+#[instruction(bump: u8, end_timestamp: i64, ticket_price:u64, max_entrants:u64)]
 pub struct InitRaffle<'info> {
     #[account(
         init,
-        seeds = [b"frank-raffle".as_ref()],
+        seeds = [CONSTRAINT_SEED.as_ref()],
         bump,
         payer = creator,
         space = size_of::<Raffle>() + 8, // Option serialization workaround
     )]
     pub raffle: Account<'info, Raffle>,
 
-    #[account(
-        mut,
-        address = Pubkey::from_str(ADMIN).unwrap()
-    )]
+    #[account(mut, address = Pubkey::from_str(ADMIN).unwrap())]
     pub creator: Signer<'info>,
     
     pub system_program: Program<'info, System>,
@@ -123,7 +119,7 @@ pub struct InitRaffle<'info> {
 
 #[derive(Accounts)]
 pub struct UpdateRaffle<'info> {
-    #[account(mut, seeds = [b"frank-raffle".as_ref()], bump)]
+    #[account(mut, seeds = [CONSTRAINT_SEED.as_ref()], bump)]
     pub raffle: Account<'info, Raffle>,
 
     #[account(address = Pubkey::from_str(ADMIN).unwrap())]
@@ -132,21 +128,19 @@ pub struct UpdateRaffle<'info> {
 
 #[derive(Accounts)]
 pub struct ReadRaffle<'info> {
-    #[account(seeds = [b"frank-raffle".as_ref()], bump)]
+    #[account(seeds = [CONSTRAINT_SEED.as_ref()], bump)]
     pub raffle: Account<'info, Raffle>,
 }
 
 #[derive(Accounts)]
 pub struct BurnToken<'info> {
-    #[account(mut, seeds = [b"frank-raffle".as_ref()], bump)]
+    #[account(mut, seeds = [CONSTRAINT_SEED.as_ref()], bump)]
     pub raffle: Account<'info, Raffle>,
 
-    /// CHECK: This is the token that we want to mint
     #[account(mut)]
     pub mint: UncheckedAccount<'info>,
     #[account(mut)]
     pub token_account: Account<'info, TokenAccount>,
-    /// CHECK: the authority of the mint account
     #[account(mut)]
     pub authority: AccountInfo<'info>,
     
