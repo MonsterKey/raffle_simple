@@ -2,7 +2,7 @@ use anchor_lang::prelude::*;
 use std::str::FromStr;
 use std::mem::size_of;
 use anchor_lang::Result;
-use anchor_spl::token::{Token, MintTo, Transfer, Burn, TokenAccount};
+use anchor_spl::token::{Token, MintTo, Transfer, Burn, TokenAccount, Mint};
 
 
 const CONSTRAINT_SEED:&[u8] = b"frank-raffle";
@@ -137,8 +137,8 @@ pub struct BurnToken<'info> {
     #[account(mut, seeds = [CONSTRAINT_SEED.as_ref()], bump)]
     pub raffle: Account<'info, Raffle>,
 
-    #[account(mut)]
-    pub mint: UncheckedAccount<'info>,
+    #[account(mut, address = Pubkey::from_str(TOKEN_MINT))]
+    pub mint: Account<'info, Mint>,
     #[account(mut)]
     pub token_account: Account<'info, TokenAccount>,
     #[account(mut)]
