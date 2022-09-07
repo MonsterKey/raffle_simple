@@ -2,7 +2,7 @@ use anchor_lang::prelude::*;
 use std::str::FromStr;
 use std::mem::size_of;
 use anchor_lang::Result;
-use anchor_spl::token::{Token, MintTo, Transfer, Burn, TokenAccount, Mint};
+use anchor_spl::token::{Token, Burn, TokenAccount, Mint};
 
 
 const CONSTRAINT_SEED:&[u8] = b"frank-raffle";
