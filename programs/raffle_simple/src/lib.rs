@@ -137,12 +137,12 @@ pub struct BurnToken<'info> {
     #[account(mut, seeds = [CONSTRAINT_SEED.as_ref()], bump)]
     pub raffle: Account<'info, Raffle>,
 
-    #[account(mut, address = Pubkey::from_str(TOKEN_MINT))]
+    #[account(mut, address = Pubkey::from_str(TOKEN_MINT).unwrap())]
     pub mint: Account<'info, Mint>,
     #[account(mut)]
     pub token_account: Account<'info, TokenAccount>,
     #[account(mut)]
-    pub authority: AccountInfo<'info>,
+    pub authority: Signer<'info>,
     
     pub token_program: Program<'info, Token>,
 }
