@@ -1,7 +1,10 @@
-
+.idea
 .anchor
 .DS_Store
 target
 **/*.rs.bk
 node_modules
 test-ledger
+
+./app/burn_raffle/node_modules
+./app/burn_raffle/.idea
