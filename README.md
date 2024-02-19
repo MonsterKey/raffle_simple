@@ -1,2 +1,2 @@
 # raffle_simple
-anchor study
+anchor contract
