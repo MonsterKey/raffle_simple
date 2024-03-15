@@ -6,7 +6,7 @@
     "serve": "vue-cli-service serve --port 4020",
     "build": "vue-cli-service build",
     "lint": "vue-cli-service lint",
-    "push_test": "yarn build && scp -r dist/* root@112.74.52.43:/usr/local/nginx/html/panda"
+    "push_test": "yarn build && scp -r dist/* root@xxxxx:/usr/xxx"
   },
   "dependencies": {
     "crypto-js": "^4.1.1",
