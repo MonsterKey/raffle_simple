@@ -5,11 +5,11 @@ use anchor_lang::Result;
 use anchor_spl::token::{Token, Burn, TokenAccount, Mint};
 
 
-const CONSTRAINT_SEED:&[u8] = b"frank-raffle";
+const CONSTRAINT_SEED:&[u8] = b"raffle";
 
 pub const ENTRANTS_SIZE: u64 = 5000;
-pub const TOKEN_MINT: &str = "CdjiQaAUqbz6m4hpf1SDrfJ78Mr2twSHFLETSywsXHW7";
-pub const ADMIN: &str = "idZLUJ5JTfngiciw99445sqmxfuh7cF7t1QBxFuYf2d";
+pub const TOKEN_MINT: &str = "";
+pub const ADMIN: &str = "";
 
 declare_id!("JBmbzzuur92hmKRoDegWpaL6tmLcHsaJTVzRwv68S9mZ");
 
