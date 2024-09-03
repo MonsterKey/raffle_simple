@@ -46,7 +46,7 @@ describe("raffle_simple", () => {
   // it("Is update!", async () => {
 
   //   const [rafflePDA] = await web3.PublicKey.findProgramAddress([
-  //     utf8.encode('frank-raffle')
+  //     utf8.encode('raffle')
   //   ],
   //     program.programId,
   //   )
@@ -68,7 +68,7 @@ describe("raffle_simple", () => {
   it("Is read!", async () => {
 
     const [rafflePDA] = await web3.PublicKey.findProgramAddress([
-      utf8.encode('frank-raffle')
+      utf8.encode('raffle')
     ],
       program.programId,
     )
@@ -81,7 +81,7 @@ describe("raffle_simple", () => {
 
   it("Burn token", async () => {
     const [rafflePDA] = await web3.PublicKey.findProgramAddress([
-      utf8.encode('frank-raffle')
+      utf8.encode('raffle')
     ],
       program.programId,
     )
