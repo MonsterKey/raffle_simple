@@ -20,7 +20,7 @@ describe("raffle_simple", () => {
   // it("Is init!", async () => {
 
   //   const [rafflePDA] = await web3.PublicKey.findProgramAddress([
-  //     utf8.encode('frank-raffle')
+  //     utf8.encode('raffle')
   //   ],
   //     program.programId,
   //   )
@@ -89,7 +89,7 @@ describe("raffle_simple", () => {
     const myWallet = anchor.AnchorProvider.env().wallet.publicKey;
     console.log("myWallet: ", myWallet.toString());
 
-    let mint = new anchor.web3.PublicKey("CdjiQaAUqbz6m4hpf1SDrfJ78Mr2twSHFLETSywsXHW7")
+    let mint = new anchor.web3.PublicKey("")
     const tokenAccount = await getAssociatedTokenAddress(
       mint,
       myWallet
